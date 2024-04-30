@@ -1,0 +1,45 @@
+ services:
+  kong-dp:
+    image: kong/kong-gateway
+    container_name: kong-dp
+    hostname: kong-dp
+    volumes:
+    - ${PWD}/certs:/srv/shared/ssl
+    #- ${PWD}/logs:/srv/shared/logs
+    healthcheck:
+      test: ["CMD", "kong", "health"]
+      interval: 30s
+      timeout: 30s
+      retries: 3
+    restart: on-failure
+    ports:
+    - "8000:8000/tcp"
+    - "8443:8443/tcp"
+    - "8101:8101/tcp"
+    environment:
+      KONG_ROLE: "data_plane"
+      KONG_DATABASE: "off"
+      KONG_VITALS: "off"
+      KONG_CLUSTER_MTLS: "pki"
+      KONG_CLUSTER_CONTROL_PLANE: ${KONG_CLUSTER_CONTROL_PLANE}:443
+      KONG_CLUSTER_SERVER_NAME: ${KONG_CLUSTER_CONTROL_PLANE}
+      KONG_CLUSTER_TELEMETRY_ENDPOINT: ${KONG_CLUSTER_TELEMETRY_ENDPOINT}:443
+      KONG_CLUSTER_TELEMETRY_SERVER_NAME: ${KONG_CLUSTER_TELEMETRY_ENDPOINT}
+      KONG_CLUSTER_CERT: "/srv/shared/ssl/tls.crt"
+      KONG_CLUSTER_CERT_KEY: "/srv/shared/ssl/tls.key"
+      KONG_LUA_SSL_TRUSTED_CERTIFICATE: "system"
+      KONG_KONNECT_MODE: "on"
+      KONG_CLUSTER_DP_LABELS: created-by:ippei.murata,type:docker-linuxdockerOS"
+      #KONG_PROXY_ACCESS_LOG: /srv/shared/logs/proxy_access.log
+      #KONG_PROXY_ERROR_LOG: /srv/shared/logs/proxy_error.log
+      #KONG_PROXY_STREAM_ACCESS_LOG: /srv/shared/logs/proxystream_access.log basic
+      #KONG_PROXY_STREAM_ERROR_LOG: /srv/shared/logs/proxystream_error.log
+      KONG_ANONYMOUS_REPORTS: "off"
+      KONG_NGINX_WORKER_PROCESSES: 1
+      #KONG_TRACING: "on"
+      #KONG_TRACING_WRITING_STRATEGY: "file"
+      #KONG_TRACING_TYPES: "all"
+      #KONG_TRACING_TIME_THRESHOLD: 0
+      #KONG_TRACING_WRITE_ENDPOINT: /srv/shared/logs/granular_tracing.log
+      #KONG_TRACING_DEBUG_HEADER: X-Trace
+      #KONG_LICENSE_DATA: ${KONG_LICENSE_DATA}
