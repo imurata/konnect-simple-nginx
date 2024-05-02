@@ -2,6 +2,8 @@
 
 set -x 
 
+. konnect-env.sh
+
 #if [ ! -d ./logs ]; then
 #	mkdir ./logs
 #fi
