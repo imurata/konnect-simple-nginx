@@ -29,7 +29,7 @@
       KONG_CLUSTER_CERT_KEY: "/srv/shared/ssl/tls.key"
       KONG_LUA_SSL_TRUSTED_CERTIFICATE: "system"
       KONG_KONNECT_MODE: "on"
-      KONG_CLUSTER_DP_LABELS: created-by:ippei.murata,type:docker-linuxdockerOS"
+      KONG_CLUSTER_DP_LABELS: created-by:ippei.murata,type:docker-linuxdocker"
       #KONG_PROXY_ACCESS_LOG: /srv/shared/logs/proxy_access.log
       #KONG_PROXY_ERROR_LOG: /srv/shared/logs/proxy_error.log
       #KONG_PROXY_STREAM_ACCESS_LOG: /srv/shared/logs/proxystream_access.log basic
