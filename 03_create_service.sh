@@ -19,4 +19,4 @@ if [ $? -ne 0 ]; then
 	fi
 fi
 
-deck gateway sync nginx-deck.yaml --konnect-token=$KONNECT_TOKEN
+deck gateway sync nginx-deck.yaml --konnect-token=$KONNECT_TOKEN --konnect-control-plane-name simple-nginx
