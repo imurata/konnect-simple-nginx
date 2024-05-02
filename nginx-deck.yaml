@@ -1,0 +1,13 @@
+_format_version: "3.0"
+_konnect:
+  control_plane_name: simple-nginx
+services:
+- host: ${{ env "DECK_NGINX_HOST" }}
+  name: simple-nginx
+  path: /
+  port: ${{ env "DECK_NGINX_PORT" }}
+  protocol: http
+  routes:
+  - name: root
+    methods:
+    - GET
