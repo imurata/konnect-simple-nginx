@@ -28,7 +28,7 @@ export CPURL="https://us.api.konghq.com/v2/control-planes/$CPID"
 export KONG_CLUSTER_CONTROL_PLANE=$(https GET $CPURL --auth-type=bearer --auth=$KONNECT_TOKEN | jq -r '.config.control_plane_endpoint' | cut -c 9-)
 export KONG_CLUSTER_TELEMETRY_ENDPOINT=$(https GET $CPURL --auth-type=bearer --auth=$KONNECT_TOKEN | jq -r '.config.telemetry_endpoint' | cut -c 9-)
 
-CERT=$(cat certs/tls.crt | tr -d "\n")
+CERT=$(cat certs/tls.crt)
 https POST $CPURL/dp-client-certificates cert="$CERT" --auth-type=bearer --auth=$KONNECT_TOKEN
 
 cat <<EOF > ./cp-env.sh
