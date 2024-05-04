@@ -1,0 +1,42 @@
+openapi: 3.1.0
+info:
+  contact:
+    name: simple-nginx
+  version: 0.1.0
+  title: Simple nginx
+  description: | 
+    nginx 
+servers: 
+  - url: 'http://{devURL}:{port}'
+    description: simple nginx testing env
+    variables:
+      devURL:
+        default: ec2-44-202-136-69.compute-1.amazonaws.com
+      port:
+        enum:
+        - '28000'
+        - '8000'
+        default: '28000'
+  - url: https://dummy.url/nginx
+    description: simple nginx production env
+
+security:
+- Bearer: []
+
+tags:
+- name: nginx-root
+  description: nginx root
+  externalDocs:
+    url: https://dummy.url/dummy_docs
+
+paths:
+  /:
+    get:
+      description: nginx root description
+      summary: nginx root
+      tags: ["nginx-root"]
+      operationId: "getroot"
+      responses:
+        "200":
+          description: Succeeded to get root 
+
